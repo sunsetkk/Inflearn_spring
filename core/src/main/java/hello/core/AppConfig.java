@@ -9,23 +9,30 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+// 스프링으로 전환하기
+@Configuration
 // 관심사 분리를 위해 구현 객체를 생성하고 연결하는 책임을 가진 별도의 설정 클래스
 public class AppConfig {
 
+    @Bean
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
 
+    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy());
-
     }
 
+    @Bean
     public MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }
 
+    @Bean
     public DiscountPolicy discountPolicy(){
 //        return new FixDiscountPolicy();
         return new RateDiscountPolicy();
