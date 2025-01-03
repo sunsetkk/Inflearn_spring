@@ -13,9 +13,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 // 스프링으로 전환하기
+// @Configuration 없이 @Bean 만 사용해도 스프링 빈으로 등록되지만, 싱글톤을 보장하지 않음.
 @Configuration
 // 관심사 분리를 위해 구현 객체를 생성하고 연결하는 책임을 가진 별도의 설정 클래스
 public class AppConfig {
+
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository()
 
     @Bean
     public MemberService memberService(){
