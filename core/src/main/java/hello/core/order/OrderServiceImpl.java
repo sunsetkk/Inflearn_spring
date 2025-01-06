@@ -6,24 +6,17 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 // ComponentScan 의 대상이 되도록 @Component 추가
 @Component
+@RequiredArgsConstructor        // 필수 값인 final 이 붙은 애들로 생성자를 자동으로 생성해줌 (command + F12 확인가능)
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
-
-    // 생성자를 통해 외부(AppConfig)에서 구현 객체가 들어올 수 있도록 설계
-    // OrderServiceImpl 은 의존관계에 대한 정보는 AppConfig 에 맡기고 실행에만 집중
-    // OrderServiceImpl 은 추상에만 의존하면 됨
-    @Autowired  // 의존관계를 자동으로 주입
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
